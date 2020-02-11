@@ -96,6 +96,8 @@ func ImportWallet(encryptedData []byte, passphrase []byte) (types.Wallet, error)
 		wallet, err = nd.Import(encryptedData, passphrase, store, encryptor)
 	case "hd", "hierarchical deterministic":
 		wallet, err = hd.Import(encryptedData, passphrase, store, encryptor)
+	case "mpc", "multi-party":
+		wallet, err = mpc.Import(encryptedData, passphrase, store, encryptor)
 	default:
 		return nil, fmt.Errorf("unsupported wallet type %q", ext.Wallet.Type)
 	}
@@ -154,6 +156,8 @@ func CreateWallet(name string, opts ...Option) (types.Wallet, error) {
 		return nd.CreateWallet(name, options.store, options.encryptor)
 	case "hd", "hierarchical deterministic":
 		return hd.CreateWallet(name, options.passphrase, options.store, options.encryptor)
+	case "mpc", "multi-party":
+		return mpc.CreateWallet(name, options.store, options.encryptor)
 	default:
 		return nil, fmt.Errorf("unhandled wallet type %q", options.walletType)
 	}
