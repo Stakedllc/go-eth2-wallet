@@ -1,10 +1,10 @@
 # go-eth2-wallet
 
-[![Tag](https://img.shields.io/github/tag/wealdtech/go-eth2-wallet.svg)](https://github.com/wealdtech/go-eth2-wallet/releases/)
-[![License](https://img.shields.io/github/license/wealdtech/go-eth2-wallet.svg)](LICENSE)
-[![GoDoc](https://godoc.org/github.com/wealdtech/go-eth2-wallet?status.svg)](https://godoc.org/github.com/wealdtech/go-eth2-wallet)
-[![Travis CI](https://img.shields.io/travis/wealdtech/go-eth2-wallet.svg)](https://travis-ci.org/wealdtech/go-eth2-wallet)
-[![codecov.io](https://img.shields.io/codecov/c/github/wealdtech/go-eth2-wallet.svg)](https://codecov.io/github/wealdtech/go-eth2-wallet)
+[![Tag](https://img.shields.io/github/tag/Stakedllc/go-eth2-wallet.svg)](https://github.com/Stakedllc/go-eth2-wallet/releases/)
+[![License](https://img.shields.io/github/license/Stakedllc/go-eth2-wallet.svg)](LICENSE)
+[![GoDoc](https://godoc.org/github.com/Stakedllc/go-eth2-wallet?status.svg)](https://godoc.org/github.com/Stakedllc/go-eth2-wallet)
+[![Travis CI](https://img.shields.io/travis/Stakedllc/go-eth2-wallet.svg)](https://travis-ci.org/Stakedllc/go-eth2-wallet)
+[![codecov.io](https://img.shields.io/codecov/c/github/Stakedllc/go-eth2-wallet.svg)](https://codecov.io/github/Stakedllc/go-eth2-wallet)
 
 Go library to provide access to Ethereum 2 wallets with advanced features.
 
@@ -23,7 +23,7 @@ Go library to provide access to Ethereum 2 wallets with advanced features.
 `go-eth2-wallet` is a standard Go module which can be installed with:
 
 ```sh
-go get github.com/wealdtech/go-eth2-wallet
+go get github.com/Stakedllc/go-eth2-wallet
 ```
 
 ## Usage
@@ -48,9 +48,9 @@ The Ethereum 2 wallet is designed to be highly modular: additional stores and wa
 
 The following stores are available:
 
-   - [filesystem](https://github.com/wealdtech/go-eth2-wallet-store-filesystem): this stores wallets and accounts on the local filesystem.
-   - [s3](https://github.com/wealdtech/go-eth2-wallet-store-s3): this stores wallets and accounts on Amazon S3.
-   - [scratch](https://github.com/wealdtech/go-eth2-wallet-store-scratch): this stores wallets and accounts in memory.
+   - [filesystem](https://github.com/Stakedllc/go-eth2-wallet-store-filesystem): this stores wallets and accounts on the local filesystem.
+   - [s3](https://github.com/Stakedllc/go-eth2-wallet-store-s3): this stores wallets and accounts on Amazon S3.
+   - [scratch](https://github.com/Stakedllc/go-eth2-wallet-store-scratch): this stores wallets and accounts in memory.
 
 Please refer to the documentation for each store to understand its functionality and available options.
 
@@ -60,6 +60,7 @@ The following wallet types are available:
 
   - [nd](https://github.com/wealdtech/go-eth2-wallet-nd): this is a traditional non-deterministic wallet where private keys are generated randomly and have no relationship to each other.
   - [hd](https://github.com/wealdtech/go-eth2-wallet-hd): this is a hierarchical deterministic wallet where private keys are generated based on a seed phrase and path.
+  - [mpc](https://github.com/Stakedllc/go-eth2-wallet-mpc): this is a multi-party computation wallet  
 
 Please refer to the documentation for each wallet type to understand its functionality and available options.
 
@@ -69,7 +70,7 @@ Please refer to the documentation for each wallet type to understand its functio
 
 ```go
 import (
-    e2wallet "github.com/wealdtech/go-eth2-wallet"
+    e2wallet "github.com/Stakedllc/go-eth2-wallet"
 )
 
 func main() {
@@ -86,7 +87,7 @@ func main() {
 
 ```go
 import (
-    e2wallet "github.com/wealdtech/go-eth2-wallet"
+    e2wallet "github.com/Stakedllc/go-eth2-wallet"
 )
 
 func main() {
@@ -103,7 +104,7 @@ func main() {
 
 ```go
 import (
-    e2wallet "github.com/wealdtech/go-eth2-wallet"
+    e2wallet "github.com/Stakedllc/go-eth2-wallet"
     s3 "github.com/wealdtech/go-eth2-wallet-store-s3"
 )
 
@@ -128,7 +129,7 @@ func main() {
 import (
     "fmt"
 
-    e2wallet "github.com/wealdtech/go-eth2-wallet"
+    e2wallet "github.com/Stakedllc/go-eth2-wallet"
 )
 
 func main() {
@@ -145,7 +146,7 @@ func main() {
 
 ```go
 import (
-    e2wallet "github.com/wealdtech/go-eth2-wallet"
+    e2wallet "github.com/Stakedllc/go-eth2-wallet"
 )
 
 func main() {
@@ -179,7 +180,7 @@ func main() {
 import (
     "errors"
 
-    e2wallet "github.com/wealdtech/go-eth2-wallet"
+    e2wallet "github.com/Stakedllc/go-eth2-wallet"
 )
 
 func main() {
@@ -219,11 +220,13 @@ func main() {
 ## Maintainers
 
 Jim McDonald: [@mcdee](https://github.com/mcdee).
+Max Bucci: [@mbucci](https://github.com/mbucci).
 
 ## Contribute
 
-Contributions welcome. Please check out [the issues](https://github.com/wealdtech/go-eth2-wallet/issues).
+Contributions welcome. Please check out [the issues](https://github.com/Stakedllc/go-eth2-wallet/issues).
 
 ## License
 
 [Apache-2.0](LICENSE) © 2019 Weald Technology Trading Ltd
+[Apache-2.0](LICENSE) © 2020 Staked Securely LLC
