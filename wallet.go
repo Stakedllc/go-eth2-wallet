@@ -22,6 +22,7 @@ import (
 	"github.com/wealdtech/go-ecodec"
 	hd "github.com/wealdtech/go-eth2-wallet-hd"
 	nd "github.com/wealdtech/go-eth2-wallet-nd"
+	mpc "github.com/Stakedllc/go-eth2-wallet-mpc"
 	types "github.com/wealdtech/go-eth2-wallet-types"
 )
 
@@ -215,6 +216,8 @@ func walletFromBytes(data []byte, store types.Store, encryptor types.Encryptor) 
 		wallet, err = nd.DeserializeWallet(data, store, encryptor)
 	case "hd", "hierarchical deterministic":
 		wallet, err = hd.DeserializeWallet(data, store, encryptor)
+	case "mpc", "multi-party":
+		wallet, err = mpc.DeserializeWallet(data, store, encryptor)
 	default:
 		return nil, fmt.Errorf("unsupported wallet type %q", info.Type)
 	}
