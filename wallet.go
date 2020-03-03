@@ -29,10 +29,12 @@ import (
 
 // walletOptions are the optons used when opening and creating wallets.
 type walletOptions struct {
-	store      types.Store
-	encryptor  types.Encryptor
-	walletType string
-	passphrase []byte
+	store      	types.Store
+	encryptor  	types.Encryptor
+	walletType 	string
+	passphrase 	[]byte
+	keyService 	string
+	pubKey 		[]byte
 }
 
 // Option gives options to OpenWallet and CreateWallet.
@@ -71,6 +73,20 @@ func WithPassphrase(passphrase []byte) Option {
 func WithType(walletType string) Option {
 	return optionFunc(func(o *walletOptions) {
 		o.walletType = walletType
+	})
+}
+
+// WithKeyService sets the keyService for the wallet.
+func WithKeyService(keyService string) Option {
+	return optionFunc(func(o *walletOptions) {
+		o.keyService = keyService
+	})
+}
+
+// WithPubKey sets the pub key for the wallet.
+func WithPubKey(pubKey []byte) Option {
+	return optionFunc(func(o *walletOptions) {
+		o.pubKey = pubKey
 	})
 }
 
@@ -135,10 +151,12 @@ func OpenWallet(name string, opts ...Option) (types.Wallet, error) {
 // If the wallet already exists an error is returned.
 func CreateWallet(name string, opts ...Option) (types.Wallet, error) {
 	options := walletOptions{
-		store:      store,
-		encryptor:  encryptor,
-		passphrase: nil,
-		walletType: "nd",
+		store:      	store,
+		encryptor:  	encryptor,
+		passphrase: 	nil,
+		walletType: 	"nd",
+		keyService: 	"http://localhost:8080"
+		pubKey: 		nil,
 	}
 	for _, o := range opts {
 		if o != nil {
@@ -158,7 +176,7 @@ func CreateWallet(name string, opts ...Option) (types.Wallet, error) {
 	case "hd", "hierarchical deterministic":
 		return hd.CreateWallet(name, options.passphrase, options.store, options.encryptor)
 	case "mpc", "multi-party":
-		return mpc.CreateWallet(name, options.store, options.encryptor)
+		return mpc.CreateWallet(name, options.keyServiceURL, options.store, options.encryptor, options.keyService, options.pubKey)
 	default:
 		return nil, fmt.Errorf("unhandled wallet type %q", options.walletType)
 	}
