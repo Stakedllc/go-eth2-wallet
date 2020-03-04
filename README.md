@@ -200,7 +200,7 @@ func main() {
     // Always immediately defer locking the wallet to ensure it does not remain unlocked outside of the function.
     defer account.Lock()
 
-    signature, err := account.Sign([]byte("some data to sign"), 0 /* domain */)
+    signature, err := account.Sign([]byte("some data to sign"))
     if err != nil {
         panic(err)
     }
@@ -208,7 +208,7 @@ func main() {
     // as defer it as per above.
     account.Lock()
     
-    verified := signature.Verify([]byte("some data to sign"), account.PublicKey(), 0 /* domain */)
+    verified := signature.Verify([]byte("some data to sign"), account.PublicKey())
     if !verified {
         panic(errors.New("failed to verify signature"))
     }
