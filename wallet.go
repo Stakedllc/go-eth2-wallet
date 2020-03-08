@@ -23,7 +23,7 @@ import (
 	"github.com/wealdtech/go-ecodec"
 	hd "github.com/wealdtech/go-eth2-wallet-hd/v2"
 	nd "github.com/wealdtech/go-eth2-wallet-nd/v2"
-	mpc "github.com/Stakedllc/go-eth2-wallet-mpc"
+	mpc "github.com/Stakedllc/go-eth2-wallet-mpc/v2"
 	wtypes "github.com/wealdtech/go-eth2-wallet-types/v2"
 )
 
@@ -176,7 +176,7 @@ func CreateWallet(name string, opts ...Option) (wtypes.Wallet, error) {
 	case "hd", "hierarchical deterministic":
 		return hd.CreateWallet(name, options.passphrase, options.store, options.encryptor)
 	case "mpc", "multi-party":
-		return mpc.CreateWallet(name, options.keyServiceURL, options.store, options.encryptor, options.keyService, options.pubKey)
+		return mpc.CreateWallet(name, options.store, options.encryptor, options.keyService, options.pubKey)
 	default:
 		return nil, fmt.Errorf("unhandled wallet type %q", options.walletType)
 	}
