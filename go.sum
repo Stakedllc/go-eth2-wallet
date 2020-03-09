@@ -1,5 +1,5 @@
-github.com/Stakedllc/go-eth2-wallet-mpc/v2 v2.0.0 h1:VkadllIFuse2UEYad5li+zxNJ152/hvb7L3KiR/XGq4=
-github.com/Stakedllc/go-eth2-wallet-mpc/v2 v2.0.0/go.mod h1:DRjCabpmB4A/v+eqdx6RUNBqAw5VJWygGqSqzdosKCI=
+github.com/Stakedllc/go-eth2-wallet-mpc/v2 v2.0.1 h1:4atprwit9TXKKAXunFf+EicMDuTQrDUvgn3NTTQwG08=
+github.com/Stakedllc/go-eth2-wallet-mpc/v2 v2.0.1/go.mod h1:DRjCabpmB4A/v+eqdx6RUNBqAw5VJWygGqSqzdosKCI=
 github.com/aws/aws-sdk-go v1.29.14 h1:NToqC5ZQ2RaxxSPp9szuQimWQWPG++ITwXbklq/FN7c=
 github.com/aws/aws-sdk-go v1.29.14/go.mod h1:1KvfttTE3SPKMpo8g2c6jL3ZKfXtFvKscTgahTma5Xg=
 github.com/campoy/embedmd v1.0.0/go.mod h1:oxyr9RCiSXg0M3VJ3ks0UGfp98BpSSGr0kpiX3MzVl8=
