@@ -1,5 +1,5 @@
-github.com/Stakedllc/go-eth2-wallet-mpc/v2 v2.0.2 h1:GuuRMbVRiAqRdZwLHhntSrd9eq9nqJQBxhv4q1dbSag=
-github.com/Stakedllc/go-eth2-wallet-mpc/v2 v2.0.2/go.mod h1:7MTDKJy3idJ7vQ9QvRBXx2lcOc2jMvFy3IsZOS8WVPs=
+github.com/Stakedllc/go-eth2-wallet-mpc/v2 v2.0.3 h1:MrXCGnYRE31Fz/orG61QVgtaz2sYaZiFlPTlhLzAK4g=
+github.com/Stakedllc/go-eth2-wallet-mpc/v2 v2.0.3/go.mod h1:C8zTqnEmQnG2ZjFuDiExSSnD7ECg24Wngn2a3oKKtzk=
 github.com/aws/aws-sdk-go v1.29.14 h1:NToqC5ZQ2RaxxSPp9szuQimWQWPG++ITwXbklq/FN7c=
 github.com/aws/aws-sdk-go v1.29.14/go.mod h1:1KvfttTE3SPKMpo8g2c6jL3ZKfXtFvKscTgahTma5Xg=
 github.com/campoy/embedmd v1.0.0/go.mod h1:oxyr9RCiSXg0M3VJ3ks0UGfp98BpSSGr0kpiX3MzVl8=
@@ -53,6 +53,7 @@ github.com/wealdtech/go-eth2-wallet-store-filesystem v1.7.1/go.mod h1:zNPP5si4rr
 github.com/wealdtech/go-eth2-wallet-store-s3 v1.6.1 h1:f86TIVHqYkmDYc8VLsiIJ/KbGtNMeCGhkefqpXUVmYE=
 github.com/wealdtech/go-eth2-wallet-store-s3 v1.6.1/go.mod h1:LZJyGLcwWVukaMfxPEsQebRhHNyw+PaVkDV8vFwe9BI=
 github.com/wealdtech/go-eth2-wallet-store-scratch v1.3.0/go.mod h1:NaV/et5zTaqHhTpdpSveUYE2czCFAD8f07eABh/0pso=
+github.com/wealdtech/go-eth2-wallet-store-scratch v1.3.1/go.mod h1:9uTuHDbIJitFqQXvqK7ad3MrBElTt9TMJMHXtGCdNFQ=
 github.com/wealdtech/go-eth2-wallet-types v1.8.0 h1:6K/u5CTcUavgzoABeeuBAZ0jp1qEOdK/9U8gaMJUlVE=
 github.com/wealdtech/go-eth2-wallet-types v1.8.0/go.mod h1:5A83MUBhmLgxpg9X5eqvnDIOYfn329caf5DOcv7pcY0=
 github.com/wealdtech/go-eth2-wallet-types/v2 v2.0.0 h1:EyTwHO7zXtYkf62h3MqSB3OWc8pv0dnFl41yykUJY3s=
