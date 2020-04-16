@@ -11,6 +11,5 @@ require (
 	github.com/wealdtech/go-eth2-wallet-nd/v2 v2.0.1
 	github.com/wealdtech/go-eth2-wallet-store-filesystem v1.7.2
 	github.com/wealdtech/go-eth2-wallet-store-s3 v1.6.2
-	github.com/wealdtech/go-eth2-wallet-types v1.8.0 // indirect
 	github.com/wealdtech/go-eth2-wallet-types/v2 v2.0.1
 )
