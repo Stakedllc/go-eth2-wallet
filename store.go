@@ -17,6 +17,7 @@ import (
 	"errors"
 	"fmt"
 
+	vault "github.com/stakedllc/go-eth2-wallet-store-vault"
 	filesystem "github.com/wealdtech/go-eth2-wallet-store-filesystem"
 	s3 "github.com/wealdtech/go-eth2-wallet-store-s3"
 	wtypes "github.com/wealdtech/go-eth2-wallet-types/v2"
@@ -40,6 +41,8 @@ func SetStore(name string, passphrase []byte) error {
 		store, err = s3.New(s3.WithPassphrase(passphrase))
 	case "filesystem":
 		store = filesystem.New(filesystem.WithPassphrase(passphrase))
+	case "vault":
+		store, err = vault.New(vault.WithPassphrase(passphrase))
 	default:
 		err = fmt.Errorf("unknown wallet store %q", name)
 	}
