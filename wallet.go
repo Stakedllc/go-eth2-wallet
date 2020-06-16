@@ -19,11 +19,11 @@ import (
 	"errors"
 	"fmt"
 
+	mpc "github.com/Stakedllc/go-eth2-wallet-mpc/v2"
 	"github.com/google/uuid"
 	"github.com/wealdtech/go-ecodec"
 	hd "github.com/wealdtech/go-eth2-wallet-hd/v2"
 	nd "github.com/wealdtech/go-eth2-wallet-nd/v2"
-	mpc "github.com/Stakedllc/go-eth2-wallet-mpc/v2"
 	wtypes "github.com/wealdtech/go-eth2-wallet-types/v2"
 )
 
@@ -33,8 +33,8 @@ type walletOptions struct {
 	encryptor  wtypes.Encryptor
 	walletType string
 	passphrase []byte
-	keyService 	string
-	pubKey 		[]byte
+	keyService string
+	pubKey     []byte
 }
 
 // Option gives options to OpenWallet and CreateWallet.
@@ -151,12 +151,12 @@ func OpenWallet(name string, opts ...Option) (wtypes.Wallet, error) {
 // If the wallet already exists an error is returned.
 func CreateWallet(name string, opts ...Option) (wtypes.Wallet, error) {
 	options := walletOptions{
-		store:      	store,
-		encryptor:  	encryptor,
-		passphrase: 	nil,
-		walletType: 	"nd",
-		keyService: 	"http://localhost:8080",
-		pubKey: 		nil,
+		store:      store,
+		encryptor:  encryptor,
+		passphrase: nil,
+		walletType: "nd",
+		keyService: "http://localhost:8080",
+		pubKey:     nil,
 	}
 	for _, o := range opts {
 		if o != nil {

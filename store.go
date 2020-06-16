@@ -27,7 +27,7 @@ var store wtypes.Store
 
 func init() {
 	// default store is filesystem
-	store, _ = vault.New()
+	store = filesystem.New()
 }
 
 // SetStore sets a store to use given its name and optional passphrase.
