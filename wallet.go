@@ -15,15 +15,18 @@
 package wallet
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/google/uuid"
+	mpc "github.com/Stakedllc/go-eth2-wallet-mpc/v2"
 	"github.com/wealdtech/go-ecodec"
+	distributed "github.com/wealdtech/go-eth2-wallet-distributed"
 	hd "github.com/wealdtech/go-eth2-wallet-hd/v2"
 	nd "github.com/wealdtech/go-eth2-wallet-nd/v2"
-	mpc "github.com/Stakedllc/go-eth2-wallet-mpc/v2"
 	wtypes "github.com/wealdtech/go-eth2-wallet-types/v2"
 )
 
@@ -33,8 +36,9 @@ type walletOptions struct {
 	encryptor  wtypes.Encryptor
 	walletType string
 	passphrase []byte
-	keyService 	string
-	pubKey 		[]byte
+	seed       []byte
+	keyService string
+	pubKey     []byte
 }
 
 // Option gives options to OpenWallet and CreateWallet.
@@ -76,14 +80,21 @@ func WithType(walletType string) Option {
 	})
 }
 
-// WithKeyService sets the keyService for the wallet.
+// WithSeed sets the seed for a hierarchical deterministic or multi-party wallet.
+func WithSeed(seed []byte) Option {
+	return optionFunc(func(o *walletOptions) {
+		o.seed = seed
+	})
+}
+
+// WithKeyService sets the keyService for a multi-party wallet.
 func WithKeyService(keyService string) Option {
 	return optionFunc(func(o *walletOptions) {
 		o.keyService = keyService
 	})
 }
 
-// WithPubKey sets the pub key for the wallet.
+// WithPubKey sets the pub key for a multi-party wallet.
 func WithPubKey(pubKey []byte) Option {
 	return optionFunc(func(o *walletOptions) {
 		o.pubKey = pubKey
@@ -107,14 +118,18 @@ func ImportWallet(encryptedData []byte, passphrase []byte) (wtypes.Wallet, error
 		return nil, err
 	}
 
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
 	var wallet wtypes.Wallet
 	switch ext.Wallet.Type {
 	case "nd", "non-deterministic":
-		wallet, err = nd.Import(encryptedData, passphrase, store, encryptor)
+		wallet, err = nd.Import(ctx, encryptedData, passphrase, store, encryptor)
 	case "hd", "hierarchical deterministic":
-		wallet, err = hd.Import(encryptedData, passphrase, store, encryptor)
+		wallet, err = hd.Import(ctx, encryptedData, passphrase, store, encryptor)
+	case "distributed":
+		wallet, err = distributed.Import(ctx, encryptedData, passphrase, store, encryptor)
 	case "mpc", "multi-party":
-		wallet, err = mpc.Import(encryptedData, passphrase, store, encryptor)
+		wallet, err = mpc.Import(ctx, encryptedData, passphrase, store, encryptor)
 	default:
 		return nil, fmt.Errorf("unsupported wallet type %q", ext.Wallet.Type)
 	}
@@ -151,12 +166,13 @@ func OpenWallet(name string, opts ...Option) (wtypes.Wallet, error) {
 // If the wallet already exists an error is returned.
 func CreateWallet(name string, opts ...Option) (wtypes.Wallet, error) {
 	options := walletOptions{
-		store:      	store,
-		encryptor:  	encryptor,
-		passphrase: 	nil,
-		walletType: 	"nd",
-		keyService: 	"http://localhost:8080",
-		pubKey: 		nil,
+		store:      store,
+		encryptor:  encryptor,
+		passphrase: nil,
+		walletType: "nd",
+		seed:       nil,
+		keyService: "http://localhost:8080",
+		pubKey: 	nil,
 	}
 	for _, o := range opts {
 		if o != nil {
@@ -169,14 +185,27 @@ func CreateWallet(name string, opts ...Option) (wtypes.Wallet, error) {
 	if options.encryptor == nil {
 		return nil, errors.New("no encryptor specified")
 	}
+	if (options.walletType == "hd" || options.walletType == "hierarchical deterministic") && options.seed == nil {
+		return nil, errors.New("no seed specified")
+	}
+	if (options.walletType == "mpc" || options.walletType == "multi-party") && options.seed == nil {
+		return nil, errors.New("no seed specified")
+	}
+	if (options.walletType == "mpc" || options.walletType == "multi-party") && options.pubKey == nil {
+		return nil, errors.New("no pubKey specified")
+	}
 
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
 	switch options.walletType {
 	case "nd", "non-deterministic":
-		return nd.CreateWallet(name, options.store, options.encryptor)
+		return nd.CreateWallet(ctx, name, options.store, options.encryptor)
 	case "hd", "hierarchical deterministic":
-		return hd.CreateWallet(name, options.passphrase, options.store, options.encryptor)
+		return hd.CreateWallet(ctx, name, options.passphrase, options.store, options.encryptor, options.seed)
+	case "distributed":
+		return distributed.CreateWallet(ctx, name, options.store, options.encryptor)
 	case "mpc", "multi-party":
-		return mpc.CreateWallet(name, options.store, options.encryptor, options.keyService, options.pubKey)
+		return mpc.CreateWallet(ctx, name, options.passphrase, options.store, options.encryptor, options.seed, options.keyService, options.pubKey)
 	default:
 		return nil, fmt.Errorf("unhandled wallet type %q", options.walletType)
 	}
@@ -233,14 +262,19 @@ func walletFromBytes(data []byte, store wtypes.Store, encryptor wtypes.Encryptor
 	if err != nil {
 		return nil, err
 	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
 	var wallet wtypes.Wallet
 	switch info.Type {
 	case "nd", "non-deterministic":
-		wallet, err = nd.DeserializeWallet(data, store, encryptor)
+		wallet, err = nd.DeserializeWallet(ctx, data, store, encryptor)
 	case "hd", "hierarchical deterministic":
-		wallet, err = hd.DeserializeWallet(data, store, encryptor)
+		wallet, err = hd.DeserializeWallet(ctx, data, store, encryptor)
+	case "distributed":
+		wallet, err = distributed.DeserializeWallet(ctx, data, store, encryptor)
 	case "mpc", "multi-party":
-		wallet, err = mpc.DeserializeWallet(data, store, encryptor)
+		wallet, err = mpc.DeserializeWallet(ctx, data, store, encryptor)
 	default:
 		return nil, fmt.Errorf("unsupported wallet type %q", info.Type)
 	}
