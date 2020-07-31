@@ -3,7 +3,7 @@ module github.com/Stakedllc/go-eth2-wallet
 go 1.14
 
 require (
-	github.com/Stakedllc/go-eth2-wallet-mpc/v2 v2.3.0
+	github.com/Stakedllc/go-eth2-wallet-mpc/v2 v2.3.1
 	github.com/google/uuid v1.1.1
 	github.com/stretchr/testify v1.5.1
 	github.com/wealdtech/go-ecodec v1.1.0

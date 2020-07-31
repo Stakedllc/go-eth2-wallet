@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	wallet "github.com/wealdtech/go-eth2-wallet"
+	wallet "github.com/Stakedllc/go-eth2-wallet"
 	"gotest.tools/assert"
 )
 
